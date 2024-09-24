@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Student List</h2>
+
+<!-- Add Student Form -->
+<form method="POST" action="/add">
+    <input type="text" name="name" placeholder="Enter student name" required>
+    <button type="submit">Add</button>
+</form>
+
+<!-- Student Table -->
+<table border="1">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for index, student in students %}
+    <tr>
+        <td>{{ student }}</td>
+        <td>
+            <form method="POST" action="/edit/{{ index }}" style="display:inline;">
+                <input type="text" name="new_name" value="{{ student }}" required>
+                <button type="submit">Edit</button>
+            </form>
+            <a href="/delete/{{ index }}" onclick="return confirm('Are you sure you want to delete this student?')">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock %}
